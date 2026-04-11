@@ -33,16 +33,16 @@ export default function Navbar() {
     <motion.nav
       initial={{ y: -100 }}
       animate={{ y: isVisible ? 0 : -100 }}
-      transition={{ duration: 0.3, ease: 'easeInOut' }}
-      className={`fixed top-0 left-0 right-0 z-50 transition-colors duration-300 ${
-        isScrolled ? 'glass' : 'bg-black/80 backdrop-blur-md border-b border-white/10'
+      transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
+        isScrolled ? 'glass border-b border-white/5' : 'bg-transparent'
       }`}
     >
       {/* Breaking News Ticker */}
-      <div className="bg-red-600 text-white text-xs font-display tracking-[0.2em] uppercase py-1.5 overflow-hidden flex border-b border-red-700">
+      <div className="bg-blue-600 text-white text-[10px] font-mono tracking-[0.3em] uppercase py-1.5 overflow-hidden flex border-b border-blue-500/20">
         <motion.div 
           animate={{ x: ["0%", "-50%"] }} 
-          transition={{ duration: 30, repeat: Infinity, ease: "linear" }} 
+          transition={{ duration: 40, repeat: Infinity, ease: "linear" }} 
           className="flex whitespace-nowrap"
         >
           <span>BREAKING NEWS: TENSIÓN GLOBAL: ANÁLISIS DEL CONFLICTO ENTRE ESTADOS UNIDOS E IRÁN &nbsp;&nbsp;&nbsp;///&nbsp;&nbsp;&nbsp; MISIÓN ARTEMIS II: EL REGRESO HISTÓRICO DE LA HUMANIDAD A LA ÓRBITA LUNAR &nbsp;&nbsp;&nbsp;///&nbsp;&nbsp;&nbsp; COLOMBIA EN TENSIÓN: SALARIO MÍNIMO Y ELECCIONES &nbsp;&nbsp;&nbsp;///&nbsp;&nbsp;&nbsp; </span>
@@ -50,13 +50,16 @@ export default function Navbar() {
         </motion.div>
       </div>
 
-      <div className="max-w-[1600px] mx-auto px-6 h-20 flex items-center justify-between">
+      <div className="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
         {/* Logo */}
-        <div className="flex items-center gap-4">
-          <AnimatedLogo className="w-12 h-12 md:w-14 md:h-14" />
-          <span className="font-display font-bold text-2xl md:text-3xl tracking-tight text-white hidden sm:block">
-            INFORD <span className="text-red-600">MAX</span>
-          </span>
+        <div className="flex items-center gap-4 group cursor-pointer">
+          <AnimatedLogo className="w-10 h-10 md:w-12 md:h-12" />
+          <div className="flex flex-col">
+            <span className="font-display font-bold text-xl md:text-2xl tracking-tighter text-white leading-none">
+              INFORD<span className="text-accent-gradient">MAX</span>
+            </span>
+            <span className="text-[8px] font-mono text-white/40 tracking-[0.4em] uppercase mt-1">Global Intelligence</span>
+          </div>
         </div>
 
         {/* Desktop Links */}
@@ -65,27 +68,27 @@ export default function Navbar() {
             <a
               key={link}
               href={`#${link.toLowerCase().replace(' ', '-')}`}
-              className="text-xs font-display tracking-[0.15em] uppercase text-secondary hover:text-white transition-colors relative group"
+              className="text-[10px] font-mono tracking-[0.2em] uppercase text-white/50 hover:text-white transition-colors relative group"
             >
               {link}
-              <span className="absolute -bottom-2 left-0 w-0 h-[1px] bg-red-600 transition-all duration-300 group-hover:w-full"></span>
+              <span className="absolute -bottom-1 left-0 w-0 h-[1px] bg-blue-500 transition-all duration-500 group-hover:w-full"></span>
             </a>
           ))}
         </div>
 
         {/* Actions */}
-        <div className="hidden md:flex items-center gap-6">
-          <button className="text-secondary hover:text-white transition-colors">
-            <Search size={20} strokeWidth={1.5} />
+        <div className="hidden md:flex items-center gap-8">
+          <button className="text-white/40 hover:text-white transition-colors">
+            <Search size={18} strokeWidth={1.5} />
           </button>
-          <button className="px-6 py-2.5 bg-white text-black font-display font-bold text-xs tracking-[0.15em] uppercase hover:bg-red-600 hover:text-white transition-colors">
+          <button className="px-8 py-2.5 bg-white text-black font-bold text-[10px] tracking-[0.2em] uppercase hover:bg-blue-500 hover:text-white transition-all duration-500 rounded-full">
             Suscribirse
           </button>
         </div>
 
         {/* Mobile Menu Toggle */}
         <button 
-          className="md:hidden p-2 text-white"
+          className="md:hidden p-2 text-white/60 hover:text-white transition-colors"
           onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
         >
           {isMobileMenuOpen ? <X size={24} strokeWidth={1.5} /> : <Menu size={24} strokeWidth={1.5} />}
@@ -96,27 +99,27 @@ export default function Navbar() {
       <AnimatePresence>
         {isMobileMenuOpen && (
           <motion.div
-            initial={{ opacity: 0, height: 0 }}
-            animate={{ opacity: 1, height: 'auto' }}
-            exit={{ opacity: 0, height: 0 }}
-            className="md:hidden bg-black border-b border-white/10"
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -20 }}
+            className="md:hidden glass border-b border-white/5"
           >
-            <div className="px-6 py-6 flex flex-col gap-6">
+            <div className="px-6 py-12 flex flex-col gap-8">
               {navLinks.map((link) => (
                 <a
                   key={link}
                   href={`#${link.toLowerCase().replace(' ', '-')}`}
-                  className="text-xl font-display uppercase tracking-widest text-secondary hover:text-white transition-colors"
+                  className="text-2xl font-display font-bold uppercase tracking-tighter text-white/50 hover:text-white transition-colors"
                   onClick={() => setIsMobileMenuOpen(false)}
                 >
                   {link}
                 </a>
               ))}
-              <div className="pt-6 border-t border-white/10 flex flex-col gap-6">
-                <button className="flex items-center gap-3 text-secondary hover:text-white transition-colors font-display uppercase tracking-widest">
+              <div className="pt-8 border-t border-white/5 flex flex-col gap-8">
+                <button className="flex items-center gap-4 text-white/40 hover:text-white transition-colors font-mono text-xs uppercase tracking-widest">
                   <Search size={20} /> Buscar noticias
                 </button>
-                <button className="w-full py-4 bg-white text-black font-display font-bold text-sm tracking-widest uppercase hover:bg-red-600 hover:text-white transition-colors">
+                <button className="w-full py-4 bg-white text-black font-bold text-xs tracking-[0.2em] uppercase hover:bg-blue-500 hover:text-white transition-all duration-500 rounded-full">
                   Suscribirse
                 </button>
               </div>

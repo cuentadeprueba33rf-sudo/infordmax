@@ -27,13 +27,16 @@ export default function App() {
   }, [isLoading]);
 
   return (
-    <div className="min-h-screen bg-background text-primary selection:bg-blue-500/30">
+    <div className="min-h-screen relative">
+      <div className="atmosphere" />
+      <div className="noise" />
+      
       <AnimatePresence mode="wait">
         {isLoading && <Preloader key="preloader" onComplete={() => setIsLoading(false)} />}
       </AnimatePresence>
 
       <Navbar />
-      <main>
+      <main className="relative z-10">
         <Hero />
         <AboutUs />
         <Objective />

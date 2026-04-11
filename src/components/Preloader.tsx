@@ -58,65 +58,68 @@ export default function Preloader({ onComplete }: { onComplete: () => void }) {
       }}
     >
       {/* Background Grid & Effects */}
-      <div className="absolute inset-0 grid-bg opacity-20"></div>
+      <div className="atmosphere" />
+      <div className="noise" />
+      
       <motion.div
-        animate={{ opacity: [0.1, 0.3, 0.1], scale: [1, 1.1, 1] }}
+        animate={{ opacity: [0.1, 0.2, 0.1] }}
         transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
-        className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(216,49,91,0.15)_0%,transparent_60%)] pointer-events-none"
+        className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(59,130,246,0.1)_0%,transparent_70%)] pointer-events-none"
       />
 
       {/* Central Hub */}
       <div className="relative z-10 flex flex-col items-center">
         
         {/* Circular Progress Ring & Logo */}
-        <div className="relative w-64 h-64 md:w-80 md:h-80 flex items-center justify-center mb-12">
+        <div className="relative w-72 h-72 md:w-96 md:h-96 flex items-center justify-center mb-16">
           {/* SVG Progress Ring */}
-          <svg className="absolute inset-0 w-full h-full -rotate-90 drop-shadow-[0_0_15px_rgba(59,130,246,0.5)]" viewBox="0 0 100 100">
-            <circle cx="50" cy="50" r="48" fill="none" stroke="rgba(255,255,255,0.05)" strokeWidth="0.5" />
+          <svg className="absolute inset-0 w-full h-full -rotate-90" viewBox="0 0 100 100">
+            <circle cx="50" cy="50" r="48" fill="none" stroke="rgba(255,255,255,0.03)" strokeWidth="0.5" />
             <motion.circle 
               cx="50" cy="50" r="48" 
               fill="none" 
               stroke="url(#progressGrad)" 
-              strokeWidth="1.5" 
-              strokeDasharray="301.59" // 2 * pi * 48
+              strokeWidth="1" 
+              strokeDasharray="301.59" 
               strokeDashoffset={301.59 - (301.59 * progress) / 100}
               strokeLinecap="round"
+              filter="drop-shadow(0 0 8px rgba(59, 130, 246, 0.5))"
             />
             <defs>
               <linearGradient id="progressGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-                <stop offset="0%" stopColor="#D8315B" />
-                <stop offset="50%" stopColor="#ffffff" />
-                <stop offset="100%" stopColor="#3B82F6" />
+                <stop offset="0%" stopColor="#3b82f6" />
+                <stop offset="100%" stopColor="#06b6d4" />
               </linearGradient>
             </defs>
           </svg>
 
           {/* The New Animated Logo */}
           <motion.div
-            initial={{ scale: 0.5, opacity: 0, filter: "blur(10px)" }}
-            animate={{ scale: 1, opacity: 1, filter: "blur(0px)" }}
+            initial={{ scale: 0.8, opacity: 0 }}
+            animate={{ scale: 1, opacity: 1 }}
             transition={{ duration: 1.5, ease: [0.16, 1, 0.3, 1] }}
           >
-            <AnimatedLogo className="w-40 h-40 md:w-52 md:h-52" />
+            <AnimatedLogo className="w-48 h-48 md:w-64 md:h-64" />
           </motion.div>
           
-          {/* Percentage Text overlaying the bottom of the ring */}
-          <div className="absolute -bottom-4 left-1/2 -translate-x-1/2 bg-black/80 backdrop-blur-md px-5 py-1.5 border border-white/20 rounded-full shadow-[0_0_20px_rgba(0,0,0,0.8)]">
-            <span className="font-mono text-sm md:text-base text-white tracking-widest">{Math.round(progress)}%</span>
+          {/* Percentage Text */}
+          <div className="absolute -bottom-8 left-1/2 -translate-x-1/2">
+            <span className="font-mono text-xs md:text-sm text-white/40 tracking-[0.5em] uppercase">
+              Loading {Math.round(progress)}%
+            </span>
           </div>
         </div>
 
-        {/* Brand Name with Glitch/Reveal effect */}
+        {/* Brand Name */}
         <motion.div 
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.8, duration: 1 }}
-          className="text-center mb-6"
+          transition={{ delay: 0.5, duration: 1 }}
+          className="text-center mb-12"
         >
-          <h1 className="text-4xl md:text-6xl font-display font-bold tracking-[0.2em] text-white">
-            INFORD <span className="text-red-600">MAX</span>
+          <h1 className="text-5xl md:text-7xl font-display font-bold tracking-tighter text-gradient">
+            INFORD<span className="text-accent-gradient">MAX</span>
           </h1>
-          <div className="h-[1px] w-0 bg-gradient-to-r from-transparent via-white/50 to-transparent mx-auto mt-4 animate-[expandWidth_1.5s_ease-out_ forwards_1s]"></div>
         </motion.div>
 
         {/* System Logs */}
@@ -127,8 +130,8 @@ export default function Preloader({ onComplete }: { onComplete: () => void }) {
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -10 }}
-              transition={{ duration: 0.2 }}
-              className="font-mono text-[10px] md:text-xs text-blue-400/80 tracking-widest uppercase text-center whitespace-nowrap"
+              transition={{ duration: 0.3 }}
+              className="font-mono text-[9px] md:text-[10px] text-blue-400/50 tracking-[0.3em] uppercase text-center"
             >
               {logs[currentLog]}
             </motion.p>
@@ -136,8 +139,8 @@ export default function Preloader({ onComplete }: { onComplete: () => void }) {
         </div>
       </div>
       
-      {/* Scanline effect overlay */}
-      <div className="absolute inset-0 pointer-events-none bg-[linear-gradient(rgba(0,0,0,0)_50%,rgba(0,0,0,0.25)_50%),linear-gradient(90deg,rgba(255,0,0,0.06),rgba(0,255,0,0.02),rgba(0,0,255,0.06))] bg-[length:100%_4px,3px_100%] z-50 opacity-40"></div>
+      {/* Scanline effect */}
+      <div className="absolute inset-0 pointer-events-none bg-[linear-gradient(rgba(0,0,0,0)_50%,rgba(0,0,0,0.1)_50%)] bg-[length:100%_4px] z-50 opacity-20"></div>
     </motion.div>
   );
 }
