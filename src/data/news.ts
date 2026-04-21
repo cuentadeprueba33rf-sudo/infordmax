@@ -42,7 +42,7 @@ export const newsData: NewsArticle[] = [
     category: 'Ciencia y Tecnología',
     imageUrl: 'https://images.unsplash.com/photo-1451187580459-43490279c0fa?q=80&w=2000&auto=format&fit=crop',
     date: '08 Abr 2026',
-    author: 'Samuel CASSERES',
+    author: 'Samuel Casseres',
     featured: true,
   },
   {
@@ -93,7 +93,7 @@ export const newsData: NewsArticle[] = [
     category: 'Deportes',
     imageUrl: 'https://images.unsplash.com/photo-1551698618-1dfe5d97d256?q=80&w=2000&auto=format&fit=crop',
     date: '11 Abr 2026',
-    author: 'Samuel CASSERES',
+    author: 'Samuel Casseres',
   },
   {
     id: '9',

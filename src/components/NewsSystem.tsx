@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
-import { Search, ChevronRight, X } from 'lucide-react';
+import { Search, ChevronDown, ChevronUp } from 'lucide-react';
 import Markdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import { newsData, NewsCategory, NewsArticle } from '../data/news';
@@ -33,53 +33,60 @@ export default function NewsSystem() {
   const regularNews = filteredNews.filter(n => !n.featured);
 
   return (
-    <section id="noticias" className="py-32 relative min-h-screen">
-      <div className="max-w-7xl mx-auto px-6">
+    <section id="noticias" className="py-24 md:py-32 relative min-h-screen bg-surface">
+      <div className="max-w-[1600px] mx-auto px-6 lg:px-12">
         
         {/* Header & Controls */}
-        <div className="flex flex-col md:flex-row md:items-end justify-between gap-12 mb-24">
-          <div>
-            <h2 className="text-4xl md:text-6xl font-display font-bold mb-6 tracking-tighter">Últimas <span className="text-accent-gradient">Noticias</span></h2>
-            <p className="text-white/40 text-lg font-light italic">Información verificada en tiempo real.</p>
+        <div className="flex flex-col md:flex-row md:items-end justify-between gap-12 mb-16 editorial-border-b pb-8">
+          <div className="reveal-mask">
+            <motion.h2 
+              initial={{ y: "100%" }}
+              whileInView={{ y: "0%" }}
+              viewport={{ once: true }}
+              transition={{ duration: 1, ease: [0.76, 0, 0.24, 1] }}
+              className="text-4xl md:text-6xl font-display font-medium tracking-tight text-white mb-4"
+            >
+              Últimas <span className="italic text-white/50">Noticias.</span>
+            </motion.h2>
           </div>
           
           <div className="flex items-center gap-4 w-full md:w-auto">
             <div className="relative w-full md:w-80">
-              <Search className="absolute left-6 top-1/2 -translate-y-1/2 text-white/20 w-4 h-4" />
+              <Search className="absolute left-0 top-1/2 -translate-y-1/2 text-white/40 w-4 h-4 ml-4" />
               <input 
                 type="text" 
-                placeholder="Buscar noticias..." 
+                placeholder="Buscar artículos..." 
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                className="w-full bg-white/5 border border-white/10 rounded-full py-4 pl-14 pr-6 text-white text-sm placeholder:text-white/20 focus:outline-none focus:border-blue-500/50 transition-all duration-500"
+                className="w-full bg-transparent border border-[color:var(--color-line)] py-3 pl-12 pr-6 text-white text-sm font-sans placeholder:text-white/40 focus:outline-none focus:border-white transition-all duration-500 rounded-none"
               />
             </div>
           </div>
         </div>
 
         {/* Categories */}
-        <div className="flex overflow-x-auto pb-8 mb-12 gap-4 scrollbar-hide -mx-6 px-6 md:mx-0 md:px-0">
+        <div className="flex flex-wrap gap-4 mb-16">
           {categories.map(category => (
             <button
-              key={category}
-              onClick={() => setActiveCategory(category)}
-              className={`whitespace-nowrap px-8 py-3 rounded-full text-[10px] font-mono uppercase tracking-[0.2em] transition-all duration-500 ${
-                activeCategory === category 
-                  ? 'bg-white text-black' 
-                  : 'glass-card text-white/40 hover:text-white hover:border-white/20'
-              }`}
+               key={category}
+               onClick={() => setActiveCategory(category)}
+               className={`px-5 py-2 text-xs font-sans uppercase tracking-[0.1em] transition-all duration-500 border ${
+                 activeCategory === category 
+                   ? 'bg-white text-black border-white' 
+                   : 'bg-transparent text-white/50 border-[color:var(--color-line)] hover:text-white hover:border-white/30'
+               }`}
             >
               {category}
             </button>
           ))}
         </div>
 
-        {/* News Grid */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10">
+        {/* News Layout */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12">
           
-          {/* Featured News (Left Column on Desktop) */}
+          {/* Featured News */}
           {featuredNews.length > 0 && (
-            <div className="lg:col-span-7 flex flex-col gap-10">
+            <div className="lg:col-span-8 flex flex-col gap-12">
               {featuredNews.map(article => (
                 <NewsCard 
                   key={article.id} 
@@ -92,8 +99,9 @@ export default function NewsSystem() {
             </div>
           )}
 
-          {/* Regular News (Right Column on Desktop, or full width if no featured) */}
-          <div className={`flex flex-col gap-10 ${featuredNews.length > 0 ? 'lg:col-span-5' : 'lg:col-span-12 grid md:grid-cols-2 lg:grid-cols-3'}`}>
+          {/* Regular News (Side Column) */}
+          <div className={`flex flex-col gap-8 ${featuredNews.length > 0 ? 'lg:col-span-4 lg:pl-12 lg:border-l lg:border-[color:var(--color-line)]' : 'lg:col-span-12 grid md:grid-cols-2 lg:grid-cols-3'}`}>
+            <span className="text-xs font-sans uppercase tracking-widest text-white/30 block mb-4">Lo Más Reciente</span>
             {regularNews.map(article => (
               <NewsCard 
                 key={article.id} 
@@ -104,8 +112,8 @@ export default function NewsSystem() {
             ))}
             
             {filteredNews.length === 0 && (
-              <div className="col-span-full py-32 text-center text-white/20 font-mono text-xs uppercase tracking-widest">
-                No se encontraron noticias que coincidan con tu búsqueda.
+              <div className="col-span-full py-20 text-center text-white/30 font-sans text-xs uppercase tracking-widest">
+                No hay resultados para esta búsqueda.
               </div>
             )}
           </div>
@@ -121,37 +129,31 @@ function NewsCard({ article, isExpanded, onToggle, featured = false }: { article
     <motion.article 
       layout
       initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      exit={{ opacity: 0, scale: 0.95 }}
-      className={`glass-card rounded-4xl overflow-hidden group flex flex-col ${featured ? 'md:h-[700px] relative' : ''}`}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: "-50px" }}
+      className={`group flex flex-col ${featured ? '' : 'editorial-border-b pb-8'}`}
     >
-      <div className={`relative overflow-hidden ${featured ? 'absolute inset-0 z-0' : 'h-72'}`}>
-        <div className="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-transparent z-10"></div>
+      <div className={`overflow-hidden mb-6 ${featured ? 'h-[500px]' : 'h-48'} bg-[#1a1a1a]`}>
         <img 
           src={article.imageUrl} 
           alt={article.title} 
-          className="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-1000 ease-out"
+          className="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-1000 ease-out filter grayscale hover:grayscale-0"
           referrerPolicy="no-referrer"
         />
-        <div className="absolute top-8 left-8 z-20">
-          <span className="px-4 py-1.5 text-[10px] font-mono uppercase tracking-[0.2em] bg-blue-600/80 backdrop-blur-md text-white rounded-full">
-            {article.category}
-          </span>
-        </div>
       </div>
 
-      <div className={`relative z-20 flex flex-col flex-grow ${featured ? 'mt-auto p-10 md:p-16' : 'p-8 md:p-10'}`}>
-        <div className="flex items-center gap-4 text-[10px] text-white/40 mb-6 font-mono uppercase tracking-[0.2em]">
+      <div className="flex flex-col flex-grow">
+        <div className="flex items-center gap-3 text-xs text-white/40 mb-4 font-sans uppercase tracking-[0.1em]">
+          <span className="text-white">{article.category}</span>
+          <span className="w-1 h-1 rounded-full bg-[color:var(--color-line)]"></span>
           <span>{article.date}</span>
-          <span className="w-1 h-1 rounded-full bg-white/10"></span>
-          <span>{article.author}</span>
         </div>
         
-        <h3 className={`font-display font-bold mb-6 group-hover:text-blue-400 transition-colors tracking-tight ${featured ? 'text-4xl md:text-6xl leading-[1.1]' : 'text-2xl md:text-3xl leading-tight'}`}>
+        <h3 className={`font-display font-medium mb-4 text-white group-hover:text-white/70 transition-colors tracking-tight ${featured ? 'text-4xl leading-tight' : 'text-2xl leading-tight'}`}>
           {article.title}
         </h3>
         
-        <p className={`text-white/40 mb-8 font-light leading-relaxed ${featured ? 'text-xl max-w-2xl' : 'text-sm'}`}>
+        <p className={`text-white/60 mb-6 font-sans font-light leading-relaxed ${featured ? 'text-lg max-w-3xl' : 'text-sm'}`}>
           {article.excerpt}
         </p>
 
@@ -163,8 +165,8 @@ function NewsCard({ article, isExpanded, onToggle, featured = false }: { article
               exit={{ opacity: 0, height: 0 }}
               className="overflow-hidden"
             >
-              <div className="pt-8 border-t border-white/5 mt-4 mb-10">
-                <div className="markdown-body prose prose-invert prose-blue max-w-none">
+              <div className="pt-8 editorial-border-t mt-4 mb-8">
+                <div className="markdown-body max-w-3xl mx-auto">
                   <Markdown remarkPlugins={[remarkGfm]}>
                     {article.content}
                   </Markdown>
@@ -176,12 +178,12 @@ function NewsCard({ article, isExpanded, onToggle, featured = false }: { article
 
         <button 
           onClick={onToggle}
-          className="mt-auto inline-flex items-center gap-3 text-[10px] font-mono uppercase tracking-[0.2em] text-white/60 hover:text-blue-400 transition-colors self-start"
+          className="inline-flex items-center gap-2 text-xs font-sans uppercase tracking-[0.1em] text-white hover:text-white/60 transition-colors self-start border-b border-[color:var(--color-line)] hover:border-white pb-1"
         >
           {isExpanded ? (
-            <>Cerrar <X size={14} /></>
+            <>Cerrar Artículo <ChevronUp size={14} /></>
           ) : (
-            <>Leer más <ChevronRight size={14} className="group-hover:translate-x-1 transition-transform" /></>
+            <>Leer Artículo <ChevronDown size={14} /></>
           )}
         </button>
       </div>

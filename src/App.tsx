@@ -4,9 +4,10 @@
  */
 
 import { useState, useEffect } from 'react';
-import { AnimatePresence } from 'motion/react';
+import { AnimatePresence, motion } from 'motion/react';
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
+import ReportHeader from './components/ReportHeader';
 import AboutUs from './components/AboutUs';
 import Objective from './components/Objective';
 import Process from './components/Process';
@@ -27,23 +28,36 @@ export default function App() {
   }, [isLoading]);
 
   return (
-    <div className="min-h-screen relative">
-      <div className="atmosphere" />
-      <div className="noise" />
-      
+    <div className="min-h-screen relative bg-bg selection:bg-white selection:text-black">
       <AnimatePresence mode="wait">
         {isLoading && <Preloader key="preloader" onComplete={() => setIsLoading(false)} />}
       </AnimatePresence>
 
       <Navbar />
-      <main className="relative z-10">
-        <Hero />
-        <AboutUs />
-        <Objective />
-        <Process />
-        <NewsSystem />
-      </main>
-      <Footer />
+      {!isLoading && (
+        <motion.main 
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 1.5, ease: "easeOut", delay: 0.2 }}
+          className="relative z-10"
+        >
+          <Hero />
+          <ReportHeader />
+          <AboutUs />
+          <Objective />
+          <Process />
+          <NewsSystem />
+        </motion.main>
+      )}
+      {!isLoading && (
+        <motion.div
+           initial={{ opacity: 0 }}
+           animate={{ opacity: 1 }}
+           transition={{ duration: 1.5, ease: "easeOut", delay: 0.2 }}
+        >
+          <Footer />
+        </motion.div>
+      )}
     </div>
   );
 }
