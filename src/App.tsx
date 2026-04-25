@@ -14,6 +14,9 @@ import Process from './components/Process';
 import NewsSystem from './components/NewsSystem';
 import Footer from './components/Footer';
 import Preloader from './components/Preloader';
+import NoiseOverlay from './components/NoiseOverlay';
+import Ticker from './components/Ticker';
+import ProgressBar from './components/ProgressBar';
 
 export default function App() {
   const [isLoading, setIsLoading] = useState(true);
@@ -29,10 +32,13 @@ export default function App() {
 
   return (
     <div className="min-h-screen relative bg-bg selection:bg-white selection:text-black">
+      <ProgressBar />
+      <NoiseOverlay />
       <AnimatePresence mode="wait">
         {isLoading && <Preloader key="preloader" onComplete={() => setIsLoading(false)} />}
       </AnimatePresence>
 
+      <Ticker />
       <Navbar />
       {!isLoading && (
         <motion.main 

@@ -147,6 +147,8 @@ function NewsCard({ article, isExpanded, onToggle, featured = false }: { article
           <span className="text-white">{article.category}</span>
           <span className="w-1 h-1 rounded-full bg-[color:var(--color-line)]"></span>
           <span>{article.date}</span>
+          <span className="w-1 h-1 rounded-full bg-[color:var(--color-line)]"></span>
+          <span>{Math.max(1, Math.ceil(article.content.split(' ').length / 200))} min leída</span>
         </div>
         
         <h3 className={`font-display font-medium mb-4 text-white group-hover:text-white/70 transition-colors tracking-tight ${featured ? 'text-4xl leading-tight' : 'text-2xl leading-tight'}`}>
@@ -166,7 +168,7 @@ function NewsCard({ article, isExpanded, onToggle, featured = false }: { article
               className="overflow-hidden"
             >
               <div className="pt-8 editorial-border-t mt-4 mb-8">
-                <div className="markdown-body max-w-3xl mx-auto">
+                <div className={`markdown-body ${featured ? 'lg:columns-2 lg:gap-12' : ''}`}>
                   <Markdown remarkPlugins={[remarkGfm]}>
                     {article.content}
                   </Markdown>

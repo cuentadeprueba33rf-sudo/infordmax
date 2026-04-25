@@ -2,17 +2,31 @@ import { motion } from 'motion/react';
 
 export default function Hero() {
   return (
-    <section id="inicio" className="relative min-h-[90vh] pt-32 pb-16 px-6 md:px-12 lg:px-24 flex flex-col justify-between max-w-[1600px] mx-auto">
+    <section id="inicio" className="relative min-h-[90vh] pt-12 pb-16 px-6 md:px-12 lg:px-24 flex flex-col justify-between max-w-[1600px] mx-auto overflow-hidden">
       
-      {/* Top Editorial Rule */}
+      {/* Background Graphic Elements */}
+      <div className="absolute inset-0 z-0 pointer-events-none flex justify-center items-center opacity-40">
+        <div className="w-[80vw] h-[80vw] md:w-[50vw] md:h-[50vw] rounded-full bg-white blur-[120px] mix-blend-overlay"></div>
+      </div>
+      
+      {/* Editorial Grid Lines */}
+      <div className="absolute inset-0 z-0 pointer-events-none opacity-20 hidden md:block">
+        <div className="h-full w-[1px] bg-white absolute left-1/4"></div>
+        <div className="h-full w-[1px] bg-white absolute left-1/2"></div>
+        <div className="h-full w-[1px] bg-white absolute left-3/4"></div>
+      </div>
+
+      <div className="relative z-10 w-full h-[1px] bg-[color:var(--color-line)] origin-left" />
+      
+      {/* Top Editorial Rule (animated) - position adjusted to overlay */}
       <motion.div 
         initial={{ scaleX: 0 }}
         animate={{ scaleX: 1 }}
         transition={{ duration: 1.5, ease: [0.76, 0, 0.24, 1] }}
-        className="w-full h-[1px] bg-[color:var(--color-line)] origin-left"
+        className="w-full h-[1px] bg-[color:var(--color-line)] origin-left absolute top-[128px] left-0 right-0 z-10 px-6 md:px-12 lg:px-24 max-w-[1600px] mx-auto"
       />
 
-      <div className="flex-1 flex flex-col justify-center mt-12 md:mt-24">
+      <div className="flex-1 flex flex-col justify-center mt-12 md:mt-24 relative z-10">
         <div className="max-w-7xl relative">
           
           <div className="reveal-mask mb-4">

@@ -54,7 +54,11 @@
 }
 
 .markdown-body p {
-  @apply mb-6;
+  @apply mb-6 text-lg font-light leading-[1.8];
+}
+
+.markdown-body > p:first-of-type::first-letter {
+  @apply float-left text-[4em] font-display font-medium leading-[0.8] pr-4 pt-2 text-white;
 }
 
 .markdown-body strong {
