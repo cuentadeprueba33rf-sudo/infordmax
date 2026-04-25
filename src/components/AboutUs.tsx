@@ -35,10 +35,10 @@ export default function AboutUs() {
           <div className="lg:col-span-5 relative">
             <div className="reveal-mask">
               <motion.h2 
-                initial={{ y: "100%" }}
-                whileInView={{ y: "0%" }}
-                viewport={{ once: true, margin: "-100px" }}
-                transition={{ duration: 1, ease: [0.76, 0, 0.24, 1] }}
+                initial={{ y: 40, opacity: 0 }}
+                whileInView={{ y: 0, opacity: 1 }}
+                viewport={{ once: true, margin: "-50px" }}
+                transition={{ duration: 0.8, ease: "easeOut" }}
                 className="text-5xl md:text-7xl font-display font-medium tracking-tight text-white mb-0"
               >
                 Mentes detrás <br/><span className="italic text-white/50">de la verdad.</span>
@@ -55,10 +55,10 @@ export default function AboutUs() {
           <div className="lg:col-span-7">
              <div className="reveal-mask">
               <motion.p 
-                initial={{ y: "100%" }}
-                whileInView={{ y: "0%" }}
-                viewport={{ once: true, margin: "-100px" }}
-                transition={{ duration: 1, ease: [0.76, 0, 0.24, 1], delay: 0.2 }}
+                initial={{ y: 40, opacity: 0 }}
+                whileInView={{ y: 0, opacity: 1 }}
+                viewport={{ once: true, margin: "-50px" }}
+                transition={{ duration: 0.8, ease: "easeOut", delay: 0.2 }}
                 className="text-white/60 text-lg md:text-xl leading-relaxed font-sans font-light lg:ml-12"
               >
                 Un equipo multidisciplinario de expertos comprometidos con la excelencia periodística, la tecnología y la integridad informativa. Rigor sin concesiones.
@@ -74,7 +74,7 @@ export default function AboutUs() {
               initial={{ opacity: 0, y: 40 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-50px" }}
-              transition={{ delay: index * 0.1, duration: 1, ease: [0.76, 0, 0.24, 1] }}
+              transition={{ delay: index * 0.1, duration: 0.8, ease: "easeOut" }}
               className="group flex flex-col pt-8 editorial-border-t relative"
             >
               {/* Large structural initials */}

@@ -25,10 +25,10 @@ export default function Process() {
         <div className="flex flex-col md:flex-row justify-between md:items-end mb-20 gap-8">
           <div className="reveal-mask">
             <motion.h2 
-              initial={{ y: "100%" }}
-              whileInView={{ y: "0%" }}
+              initial={{ y: 40, opacity: 0 }}
+              whileInView={{ y: 0, opacity: 1 }}
               viewport={{ once: true }}
-              transition={{ duration: 1, ease: [0.76, 0, 0.24, 1] }}
+              transition={{ duration: 0.8, ease: "easeOut" }}
               className="text-4xl md:text-5xl font-display font-medium tracking-tight text-white m-0"
             >
               Cómo <span className="italic text-white/50">lo hacemos.</span>
@@ -36,10 +36,10 @@ export default function Process() {
           </div>
           <div className="reveal-mask hidden md:block">
             <motion.span 
-              initial={{ y: "100%" }}
-              whileInView={{ y: "0%" }}
+              initial={{ y: 40, opacity: 0 }}
+              whileInView={{ y: 0, opacity: 1 }}
               viewport={{ once: true }}
-              transition={{ duration: 1, ease: [0.76, 0, 0.24, 1], delay: 0.2 }}
+              transition={{ duration: 0.8, ease: "easeOut", delay: 0.2 }}
               className="text-xs font-sans uppercase tracking-[0.2em] text-white/40 block pb-2"
             >
               Rigor Metodológico
@@ -56,14 +56,14 @@ export default function Process() {
               key={step.number}
               initial={{ opacity: 0, y: 50 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-100px" }}
-              transition={{ delay: index * 0.15, duration: 1, ease: [0.76, 0, 0.24, 1] }}
+              viewport={{ once: true, margin: "-50px" }}
+              transition={{ delay: index * 0.15, duration: 0.8, ease: "easeOut" }}
               className="relative z-10 flex flex-col"
             >
               <div className="w-20 h-20 bg-bg editorial-border rounded-full flex items-center justify-center mb-10 overflow-hidden relative group">
                  <motion.div 
-                    initial={{ y: "100%" }}
-                    whileInView={{ y: "0%" }}
+                    initial={{ y: 40, opacity: 0 }}
+                    whileInView={{ y: 0, opacity: 1 }}
                     viewport={{ once: true }}
                     transition={{ delay: 0.3 + (index*0.1), duration: 0.8, ease: [0.76, 0, 0.24, 1] }}
                     className="text-xl font-display font-medium text-white italic"

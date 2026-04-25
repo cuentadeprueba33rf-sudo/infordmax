@@ -40,10 +40,10 @@ export default function NewsSystem() {
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-12 mb-16 editorial-border-b pb-8">
           <div className="reveal-mask">
             <motion.h2 
-              initial={{ y: "100%" }}
-              whileInView={{ y: "0%" }}
+              initial={{ y: 40, opacity: 0 }}
+              whileInView={{ y: 0, opacity: 1 }}
               viewport={{ once: true }}
-              transition={{ duration: 1, ease: [0.76, 0, 0.24, 1] }}
+              transition={{ duration: 0.8, ease: "easeOut" }}
               className="text-4xl md:text-6xl font-display font-medium tracking-tight text-white mb-4"
             >
               Últimas <span className="italic text-white/50">Noticias.</span>

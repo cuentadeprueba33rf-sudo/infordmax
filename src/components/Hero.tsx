@@ -31,9 +31,9 @@ export default function Hero() {
           
           <div className="reveal-mask mb-4">
             <motion.span 
-              initial={{ y: "100%" }}
+              initial={{ y: 40, opacity: 0 }}
               animate={{ y: "0%" }}
-              transition={{ duration: 1, ease: [0.76, 0, 0.24, 1], delay: 0.2 }}
+              transition={{ duration: 0.8, ease: "easeOut", delay: 0.2 }}
               className="block text-xs md:text-sm tracking-[0.2em] uppercase text-white/50 font-sans"
             >
               Edición Global &bull; 2026
@@ -63,9 +63,9 @@ export default function Hero() {
 
           <div className="reveal-mask mt-16 max-w-xl">
             <motion.p 
-              initial={{ y: "100%" }}
+              initial={{ y: 40, opacity: 0 }}
               animate={{ y: "0%" }}
-              transition={{ duration: 1, ease: [0.76, 0, 0.24, 1], delay: 0.6 }}
+              transition={{ duration: 0.8, ease: "easeOut", delay: 0.6 }}
               className="text-white/70 text-lg md:text-xl font-sans font-light leading-relaxed"
             >
               Exclusiva cobertura internacional en un formato puro, analítico y directo. Diseñado para mentes que exigen rigor periodístico.
@@ -75,7 +75,7 @@ export default function Hero() {
           <motion.div 
              initial={{ opacity: 0 }}
              animate={{ opacity: 1 }}
-             transition={{ duration: 1, ease: [0.76, 0, 0.24, 1], delay: 1 }}
+             transition={{ duration: 0.8, ease: "easeOut", delay: 1 }}
              className="mt-16"
           >
             <a href="#noticias" className="group inline-flex items-center gap-6 pb-2 border-b border-white hover:border-white/50 transition-colors duration-500">

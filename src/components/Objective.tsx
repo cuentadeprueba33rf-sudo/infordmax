@@ -28,10 +28,10 @@ export default function Objective() {
           <div className="lg:col-span-1 border-b lg:border-b-0 lg:border-r border-[color:var(--color-line)] pb-12 lg:pb-0 lg:pr-12">
              <div className="reveal-mask mb-4">
               <motion.span 
-                initial={{ y: "100%" }}
-                whileInView={{ y: "0%" }}
+                initial={{ y: 40, opacity: 0 }}
+                whileInView={{ y: 0, opacity: 1 }}
                 viewport={{ once: true }}
-                transition={{ duration: 1, ease: [0.76, 0, 0.24, 1] }}
+                transition={{ duration: 0.8, ease: "easeOut" }}
                 className="text-xs font-sans uppercase tracking-[0.2em] text-white/40 block"
               >
                 Misión
@@ -39,10 +39,10 @@ export default function Objective() {
             </div>
             <div className="reveal-mask">
               <motion.h2 
-                initial={{ y: "100%" }}
-                whileInView={{ y: "0%" }}
+                initial={{ y: 40, opacity: 0 }}
+                whileInView={{ y: 0, opacity: 1 }}
                 viewport={{ once: true }}
-                transition={{ duration: 1, ease: [0.76, 0, 0.24, 1], delay: 0.1 }}
+                transition={{ duration: 0.8, ease: "easeOut", delay: 0.1 }}
                 className="text-4xl md:text-5xl font-display font-medium text-white tracking-tight"
               >
                 Nuestro
@@ -59,7 +59,7 @@ export default function Objective() {
                 initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: "-50px" }}
-                transition={{ delay: 0.2 + (index * 0.1), duration: 1, ease: [0.76, 0, 0.24, 1] }}
+                transition={{ delay: 0.2 + (index * 0.1), duration: 0.8, ease: "easeOut" }}
                 className="flex flex-col group"
               >
                 <div className="w-12 h-12 rounded-full border border-[color:var(--color-line)] flex items-center justify-center mb-8 text-white group-hover:bg-white group-hover:text-black transition-all duration-500">

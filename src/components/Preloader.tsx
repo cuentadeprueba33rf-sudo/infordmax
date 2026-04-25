@@ -30,9 +30,9 @@ export default function Preloader({ onComplete }: { onComplete: () => void }) {
         {/* Elegant Typography Reveal */}
         <div className="reveal-mask">
           <motion.div
-            initial={{ y: "100%" }}
+            initial={{ y: 40, opacity: 0 }}
             animate={isExiting ? { y: "100%", opacity: 0 } : { y: "0%", opacity: 1 }}
-            transition={{ duration: 1, ease: [0.76, 0, 0.24, 1], delay: isExiting ? 0 : 0.8 }}
+            transition={{ duration: 0.8, ease: "easeOut", delay: isExiting ? 0 : 0.8 }}
             className="flex items-center gap-2"
           >
             <h1 className="text-4xl md:text-6xl lg:text-8xl font-sans font-medium tracking-[0.2em] uppercase text-white">
